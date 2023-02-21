@@ -1,8 +1,6 @@
 
-
-import { Text } from '@chakra-ui/react'
 import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } from 'react-router-dom'
-import RootLayout from '../layouts/RootLayout'
+import RootLayout from './layouts/RootLayout'
 import HomeScreen from './pages/HomeScreen'
 import SetupScreen from './pages/SetupScreen'
 

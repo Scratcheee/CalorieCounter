@@ -1,115 +1,161 @@
-import { Box, FormControl, FormLabel, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, Text, NumberInputStepper, Radio, RadioGroup, Stack, Switch, Button } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import { Form } from 'react-router-dom'
+import React, { useState } from "react";
 
 const SetupScreen = () => {
+  const [selectedOptions, setSelectedOptions] = useState({
+    gender: "",
+    activity: "",
+    weight: undefined,
+    age: undefined,
+    heightFt: undefined,
+    heightIn: undefined,
+  });
+  const [bmr, setBmr] = useState(0);
+  const [edee, setEdee] = useState(0);
 
-  const [weight, setWeight] = useState(0);
-  const [heightFt, setHeightFt] = useState(0)
-  const [heightIn, setHeightIn] = useState(0)
-  const [gender, setGender] = useState('')
-  const [activity, setActivity] = useState('')
-  const [age, setAge] = useState()
-  const [bmr, setBmr] = useState(0)
-  const [edee, setEdee] = useState(0)
-
- 
+  const handleOptionChange = (event) => {
+    const { name, value } = event.target;
+    setSelectedOptions((prevOptions) => ({ ...prevOptions, [name]: value }));
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    if(gender === 'male'){
-      setBmr((4.536 * weight) + (15.88 * ((heightFt * 12) + heightIn) ) - (5 * age) + 5)
-    } else if(gender === 'female') {
-      setBmr((4.536 * weight) + (15.88 * ((heightFt * 12) + heightIn) ) - (5 * age) - 161)
+    e.preventDefault();
+    console.log(
+      parseInt(selectedOptions.heightFt) * 12 +
+        parseInt(selectedOptions.heightIn)
+    );
+
+    if (selectedOptions.gender === "male") {
+      setBmr(
+        Math.round(
+          4.536 * selectedOptions.weight +
+            15.88 *
+              (parseInt(selectedOptions.heightFt) * 12 +
+                parseInt(selectedOptions.heightIn)) -
+            5 * selectedOptions.age +
+            5
+        )
+      );
+    } else if (selectedOptions.gender === "female") {
+      setBmr(
+        Math.round(
+          4.536 * selectedOptions.weight +
+            15.88 *
+              (parseInt(selectedOptions.heightFt) * 12 +
+                parseInt(selectedOptions.heightIn)) -
+            5 * selectedOptions.age -
+            161
+        )
+      );
     }
-    setEdee(bmr * (parseFloat(activity)))
-    
-    
-  }
-
-
+    setEdee(Math.round(bmr * parseFloat(selectedOptions.activity)));
+  };
 
   return (
-    <Box maxW={480}>
-      <form onSubmit={handleSubmit}>
-        <FormControl>
-          <FormLabel>Gender:</FormLabel>
-            <RadioGroup onChange={setGender} value={gender} >
-              <Stack direction={'row'}>
-                <Radio value={'male'}  >Male</Radio>
-                <Radio value={'female'}  >Female</Radio>
-              </Stack>
-            </RadioGroup>
-            {/* <FormLabel>
-              Use Metric?
-            </FormLabel>
-            <Switch /> */}
-            <FormLabel>Weight:</FormLabel>
-            <Stack direction={'row'}>
-              <NumberInput allowMouseWheel min={0} value={weight} onChange={(value) => setWeight(value)} isRequired>
-                <NumberInputField/>
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <Text>lbs</Text>
-            </Stack>
-            <FormLabel>
-              Height:
-            </FormLabel>
-            <Stack direction={'row'}>
-            <Stack direction={'row'}>
-              <NumberInput allowMouseWheel min={1} value={heightFt} onChange={(value) => setHeightFt(parseInt(value))} isRequired>
-                <NumberInputField/>
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <Text>ft</Text>
-            </Stack>
-            <Stack direction={'row'}>
-              <NumberInput allowMouseWheel min={1} max={11} value={heightIn} onChange={(value) => setHeightIn(parseInt(value))} isRequired>
-                <NumberInputField/>
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-              <Text>in</Text>
-            </Stack>
-            </Stack>
-            <FormLabel>
-              Age:
-            </FormLabel>
-            <NumberInput allowMouseWheel min={1} max={120} value={age} onChange={(value) => setAge(parseInt(value))} isRequired>
-                <NumberInputField/>
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
+    <div className="form-control w-full max-w-xs mt-10">
+      {/* gender */}
+      <label className="label">
+        <span className="label-text">Gender</span>
+      </label>
+      <select
+        className="select select-bordered"
+        name="gender"
+        onChange={handleOptionChange}
+      >
+        <option disabled selected  >Pick one</option> {/* FIX ME */}
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
 
-              <FormLabel>Activity Level:</FormLabel>
-            <RadioGroup onChange={setActivity} value={activity} >
-              <Stack direction={'row'}>
-                <Radio value={'1.2'} >Sedentary</Radio>
-                <Radio value={'1.375'} >Low Active</Radio>
-                <Radio value={'1.55'} >Active</Radio>
-                <Radio value={'1.9'} >Very Active</Radio>
+      {/* Weight */}
 
-              </Stack>
-            </RadioGroup>
-            <Button type='submit'  >Submit</Button>
-            <Text>Your Base Metamolic Rate is: {Math.round(bmr)}</Text>
-            <Text>Your Estimated Daily Energey Expenditure is: {Math.round(edee)}</Text>
+      <label className="label">
+        <span className="label-text">Weight</span>
+        <span className="label-text-alt">lbs</span>
+      </label>
+      <input
+        type="number"
+        name="weight"
+        placeholder="Type here"
+        className="input input-bordered w- max-w-xs"
+        value={selectedOptions.weight}
+        onChange={handleOptionChange}
+        min={0}
+      />
 
+      {/* Height */}
+      <label className="label flex ">
+        <span className="label-text flex-1">Height</span>
+        <span className="label-text-alt flex-1 ">ft</span>
+        <span className="label-text-alt flex-2 ">in</span>
+      </label>
+      <div className="">
+        <input
+          type="number"
+          name="heightFt"
+          placeholder="Type here"
+          className="input input-bordered w-1/2 max-w-xs "
+          value={selectedOptions.heightFt}
+          onChange={handleOptionChange}
+          min={0}
+        />
 
-        </FormControl>
-      </form>
-    </Box>
-  )
-}
+        <input
+          type="number"
+          name="heightIn"
+          placeholder="Type here"
+          className="input input-bordered w-1/2 max-w-xs"
+          value={selectedOptions.heightIn}
+          onChange={handleOptionChange}
+          min={0}
+          max={11}
+        />
+      </div>
 
-export default SetupScreen
+      {/* Age */}
+
+      <label className="label">
+        <span className="label-text">Age</span>
+      </label>
+      <input
+        type="number"
+        name="age"
+        placeholder="Type here"
+        className="input input-bordered w-full max-w-xs"
+        value={selectedOptions.age}
+        onChange={handleOptionChange}
+      />
+
+      {/* Activity */}
+
+      <label className="label">
+        <span className="label-text">Activity Level</span>
+      </label>
+      <select
+        className="select select-bordered"
+        name="activity"
+        onChange={handleOptionChange}
+      >
+        <option disabled selected>Pick one</option>
+        <option value="1.2">Sedentary</option>
+        <option value="1.375">Low Activity</option>
+        <option value="1.55">Active</option>
+        <option value="1.9">Very Active</option>
+      </select>
+      <button className="btn btn-primary mt-5" onClick={handleSubmit}>
+        Submit
+      </button>
+      {/* <p>gender: {selectedOptions.gender}</p>
+      <p>weight: {selectedOptions.weight}</p>
+      <p>age: {selectedOptions.age}</p>
+      <p>feet: {selectedOptions.heightFt}</p>
+      <p>inches: {selectedOptions.heightIn}</p>
+
+      <p>activity: {selectedOptions.activity}</p> */}
+
+      <p>BMR: {bmr}</p>
+      <p>EDEE: {edee}</p>
+    </div>
+  );
+};
+
+export default SetupScreen;
