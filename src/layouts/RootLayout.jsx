@@ -5,11 +5,11 @@ import Navbar from "../components/Navbar";
 
 export default function RootLayout() {
   return (
-    <div>
+    <div >
       <Navbar />
-      <div className="flex flex-col items-center justify-between">
+      <div className="flex flex-col items-center justify-between max-h-screen bg-orange-100/50">
         
-        <Outlet />
+        <Outlet   />
       </div>
     </div>
   );
