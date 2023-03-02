@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Counter from "../components/Counter";
 
 function HomeScreen() {
   let totalCal = 2300;
@@ -10,6 +11,12 @@ function HomeScreen() {
   });
 
   const [remainingCal, setRemainingCal] = useState(totalCal);
+  const [meal, setMeal] = useState({
+    breakfast: 0,
+    lunch: 0,
+    dinner: 0,
+    snack: 0,
+  });
 
   const handleOptionChange = (event) => {
     const { name, value } = event.target;
@@ -18,60 +25,27 @@ function HomeScreen() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(selectedOptions.entry);
-    console.log(selectedOptions.meal);
-    console.log(selectedOptions.calorie);
-    selectedOptions.entry === "exercise"
-      ? setRemainingCal(
-          (prevRemainingCal) =>
-            prevRemainingCal + parseInt(selectedOptions.calorie)
-        )
-      : setRemainingCal(
-          (prevRemainingCal) => prevRemainingCal - selectedOptions.calorie
-        );
+    
+    if (selectedOptions.entry === "exercise") {
+      setRemainingCal(
+        (prevRemainingCal) =>
+          prevRemainingCal + parseInt(selectedOptions.calorie)
+      );
+    } else {
+      setRemainingCal(
+        (prevRemainingCal) => prevRemainingCal - selectedOptions.calorie
+      );
+
+      setMeal((prevOptions) => ({
+        ...prevOptions,
+        [selectedOptions.meal]: selectedOptions.calorie,
+      }));
+    }
   };
 
   return (
     <div className="card bg-secondary/25 w-full max-w-xl gap-4 mt-10 mx-auto place-content-center p-10 place-items-center">
-      <div className="stats  shadow ">
-        <div className="stat place-items-center">
-          <div className="stat-title">Total</div>
-          <div className="stat-value">{totalCal}</div>
-          <div className="stat-desc">Calories</div>
-        </div>
-
-        <div className="stat place-items-center">
-          <div className="stat-title">Remaining</div>
-          <div className="stat-value">{remainingCal}</div>
-          <div className="stat-desc">Calories</div>
-        </div>
-      </div>
-
-      <div className="stats  shadow">
-        <div className="stat place-items-center">
-          <div className="stat-title">Breakfast</div>
-          <div className="stat-value">362</div>
-          <div className="stat-desc">Calories</div>
-        </div>
-
-        <div className="stat place-items-center">
-          <div className="stat-title">Lunch</div>
-          <div className="stat-value">362</div>
-          <div className="stat-desc">Calories</div>
-        </div>
-
-        <div className="stat place-items-center">
-          <div className="stat-title">Dinner</div>
-          <div className="stat-value">362</div>
-          <div className="stat-desc">Calories</div>
-        </div>
-
-        <div className="stat place-items-center">
-          <div className="stat-title">Snacks</div>
-          <div className="stat-value">362</div>
-          <div className="stat-desc">Calories</div>
-        </div>
-      </div>
+      <Counter total={totalCal} remaining={remainingCal} mealCal={meal} />
       {/*Logging Form*/}
       <div className="form-control gap-4">
         <label className="label">
@@ -121,5 +95,7 @@ function HomeScreen() {
     </div>
   );
 }
+
+
 
 export default HomeScreen;
