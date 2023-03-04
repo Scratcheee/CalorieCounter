@@ -3,7 +3,7 @@ import React from 'react'
 const Counter = (props) => {
     let progress = props.total - props.remaining
   return (
-    <div><div className="flex flex-col">
+    <div className='text-secondary-focus'><div className="flex flex-col">
     <div className="stat place-items-center">
       <div className="stat-title">Budget</div>
       <div className="stat-value">{props.total}</div>

@@ -7,7 +7,7 @@ export default function RootLayout() {
   return (
     <div >
       <Navbar />
-      <div className="flex flex-col items-center justify-between max-h-screen bg-orange-100/50">
+      <div className="flex flex-col items-center justify-between max-h-screen bg-base-100">
         
         <Outlet   />
       </div>

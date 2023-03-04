@@ -1,0 +1,9 @@
+Create dummy data DONE 3/4
+    Entry Type
+    Meal Type
+    Calorie Count
+    
+Create HistoryScreen  DONE 3/4
+Create Sign in/ Log In Screen
+Create database
+Work on design & colors

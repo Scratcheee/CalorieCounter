@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
 
-<div className="navbar bg-primary">
+<div className="navbar bg-neutral text-neutral-content">
   <div className="navbar-start">
     <div className="dropdown">
       <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -48,6 +48,9 @@ const Navbar = () => {
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg> Setup
+        </NavLink></li>
+        <li><NavLink to="history" className="btn btn-outline btn-accen">
+          history
         </NavLink></li>
       </ul>
     </div>
@@ -93,8 +96,12 @@ const Navbar = () => {
             />
           </svg>
         </NavLink></li>
+        <li><NavLink to="history" className="btn btn-outline btn-accen">
+          history
+        </NavLink></li>
     </ul>
   </div>
+  
 </div>
   );
 };

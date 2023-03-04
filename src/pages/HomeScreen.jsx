@@ -44,12 +44,12 @@ function HomeScreen() {
   };
 
   return (
-    <div className="card bg-secondary/25 w-full max-w-xl gap-4 mt-10 mx-auto place-content-center p-10 place-items-center">
+    <div className="card bg-secondary-content  w-full max-w-xl gap-4 mt-10 mx-auto place-content-center p-10 place-items-center">
       <Counter total={totalCal} remaining={remainingCal} mealCal={meal} />
       {/*Logging Form*/}
       <div className="form-control gap-4">
         <label className="label">
-          <span className="label-text">Calories</span>
+          <span className="label-text text-secondary-focus">Calories</span>
         </label>
         <input
           type="number"
@@ -62,7 +62,7 @@ function HomeScreen() {
         />
         <div className="">
           <select
-            className="select select-bordered w-full max-w-xs"
+            className="select select-bordered w-full max-w-xs font-primary"
             name="entry"
             onChange={handleOptionChange}
           >
