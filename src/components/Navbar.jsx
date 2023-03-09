@@ -26,10 +26,9 @@ const Navbar = () => {
           {/* Mobile Nav Bar */}
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-2"
+            className="menu menu-compact text-neutral dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 gap-2"
           >
             <li>
-              {" "}
               <NavLink to="/" className=" ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +43,7 @@ const Navbar = () => {
                     strokeWidth="2"
                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                   />
-                </svg>{" "}
+                </svg>
                 Home
               </NavLink>
             </li>

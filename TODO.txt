@@ -4,6 +4,23 @@ Create dummy data DONE 3/4
     Calorie Count
     
 Create HistoryScreen  DONE 3/4
+
+Clean up Nav Bar
+    coloration
+    button spacing
+
+Fix mobile sizing
+
+Add Homescreen elements
+    daily weight
+    workout
+    total weight loss
+
+Settings screen
+    Layout data elements
+
+
+
 Create Sign in/ Log In Screen
 Create database
 Work on design & colors
